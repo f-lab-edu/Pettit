@@ -1,6 +1,9 @@
 ## 🐶 Pettit 플랫폼
 
-<그림 필요>
+![image](https://user-images.githubusercontent.com/70564639/188256148-eb7ac493-f229-47d1-90da-095ca4212939.png) ![image](https://user-images.githubusercontent.com/70564639/188256151-417ca3ab-2166-4b18-a409-de0746bdfb61.png) ![image](https://user-images.githubusercontent.com/70564639/188256152-89a46f08-b52a-4129-b40b-af4f32918447.png)
+
+
+
 
 ## 💁‍♀️ 소개
 
