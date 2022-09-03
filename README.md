@@ -25,18 +25,21 @@
 
 ### Backend
 
-- Java xx
-- Spring Boot x.x.x, Spring MVC, JPA
+- Java 11
+- Spring Boot, Spring MVC, JPA
 - Mybatis
 - Junit5, Mockito
-- Gradle or Maven x.x
+- Gradle
 
 ### DevOps
 
-- Ubuntu xx.xx
+- Ubuntu 18.04
 - Mysql
 - Github Action
-- xxxCloud
+- Docker
+- Kuberentes
+- Prometheus
+- xxxCloud (필요하다면)
 
 ### Collaboration & Tools
 
