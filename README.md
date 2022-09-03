@@ -1,6 +1,5 @@
-## 🐶 Pettit 플랫폼
-
-![image](https://user-images.githubusercontent.com/70564639/188256148-eb7ac493-f229-47d1-90da-095ca4212939.png) ![image](https://user-images.githubusercontent.com/70564639/188256151-417ca3ab-2166-4b18-a409-de0746bdfb61.png) ![image](https://user-images.githubusercontent.com/70564639/188256152-89a46f08-b52a-4129-b40b-af4f32918447.png)
+## 🐶 Pettit 플랫폼 (로고 선택해야함)
+ ![image](https://user-images.githubusercontent.com/70564639/188256151-417ca3ab-2166-4b18-a409-de0746bdfb61.png) ![image](https://user-images.githubusercontent.com/70564639/188256152-89a46f08-b52a-4129-b40b-af4f32918447.png)
 
 
 
@@ -20,7 +19,7 @@
 
 ## 🌌아키텍처
 
-<그림필요>
+![image](https://user-images.githubusercontent.com/70564639/188257129-fa045dc3-bedc-4be7-a082-a29d3161be41.png)
 
 ## 🔧사용 기술
 
