@@ -1,8 +1,7 @@
 ## 🐶 Pettit 플랫폼 (로고 선택해야함)
 <img src = "https://user-images.githubusercontent.com/70564639/188346894-5f3bf81a-5a4d-4923-9f80-94982a5298ec.png" width="50%" height="50%">
+
 ## 💁‍♀️ 소개
-
-
 - 반려동물을 키우는 사람들을 위한 정보 공유 커뮤니티
 - <추가 소개 필요>
 
