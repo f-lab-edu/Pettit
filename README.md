@@ -1,5 +1,5 @@
 ## 🐶 Pettit 플랫폼 (로고 선택해야함)
-![pettit_logo_1](https://user-images.githubusercontent.com/70564639/188346894-5f3bf81a-5a4d-4923-9f80-94982a5298ec.png)
+<img src = "https://user-images.githubusercontent.com/70564639/188346894-5f3bf81a-5a4d-4923-9f80-94982a5298ec.png" width="50%" height="50%">
 ## 💁‍♀️ 소개
 
 
