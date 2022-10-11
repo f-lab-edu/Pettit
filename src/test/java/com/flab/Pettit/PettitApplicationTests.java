@@ -11,4 +11,9 @@ class PettitApplicationTests {
 
 	}
 
+	@Test
+	void gitActionsTest(){
+
+	}
+
 }
