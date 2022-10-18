@@ -1,0 +1,35 @@
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+header {
+    background-color: beige;
+    padding: 3%;
+}
+
+footer {
+    background-color: beige;
+    padding: 1%;
+    text-align: center;
+}
+
+#wrap {
+    padding: 15% 0%;
+}
+
+#wrap > * {
+    margin: 3% 0%;
+}
+
+.search {
+    display: inline;
+}
+
+a {
+    text-decoration: none;
+}
