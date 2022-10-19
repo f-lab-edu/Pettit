@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" th:href="@{/css/board.css}">
+</head>
+<body>
+<!-- header 추가 -->
+<div th:insert="common/header.html" id="header"></div>
+
+<div id="wrap">
+    <a th:href="@{/post}">글쓰기</a>
+
+    <form action="/board/search" method="GET">
+        <div class="search">
+            <input name="keyword" type="text" placeholder="검색어를 입력해주세요">
+        </div>
+
+        <button>검색하기</button>
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th class="one wide">번호</th>
+            <th class="ten wide">글제목</th>
+            <th class="two wide">작성자</th>
+            <th class="three wide">작성일</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <!-- CONTENTS !-->
+        <tr th:each="board : ${boardList}">
+            <td>
+                <span th:text="${board.id}"></span>
+            </td>
+            <td>
+                <a th:href="@{'/post/' + ${board.id}}">
+                    <span th:text="${board.title}"></span>
+                </a>
+            </td>
+            <td>
+                <span th:text="${board.writer}"></span>
+            </td>
+            <td>
+                <span th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+    <span th:each="pageNum : ${pageList}" th:inline="text">
+        <a th:href="@{'/?page=' + ${pageNum}}">[[${pageNum}]]</a>
+    </span>
+    </div>
+</div>
+
+<!-- footer 추가 -->
+<div th:insert="common/footer.html" id="footer"></div>
+</body>
