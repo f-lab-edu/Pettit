@@ -1,6 +1,6 @@
 package com.flab.Pettit.dto;
 
-import com.flab.Pettit.domain.entity.Board;
+import com.flab.Pettit.domain.entity.BoardEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -17,8 +17,8 @@ public class BoardDto {
     private LocalDateTime createDate;
     private LocalDateTime modifiedDate;
 
-    public Board toEntity(){
-        Board build = Board.builder()
+    public BoardEntity toEntity(){
+        BoardEntity build = BoardEntity.builder()
                 .id(id)
                 .writer(writer)
                 .title(title)

@@ -3,38 +3,34 @@ package com.flab.Pettit.controller;
 import com.flab.Pettit.dto.BoardDto;
 import com.flab.Pettit.service.BoardService;
 import io.swagger.annotations.Api;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.List;
 
 
 @Api(tags = {"게시글"})
-@Controller
+@RestController
+@RequiredArgsConstructor
 @RequestMapping("/api")
 
 public class BoardController {
     private final BoardService boardService;
-
-
-
-    public BoardController(BoardService boardService) {
-        this.boardService = boardService;
-    }
-    @GetMapping("/")
-    public String list() {
-        return "board/list.html";
-    }
-    @GetMapping("/post")
-    public String write(){
-        return "board/write.html";
+ // 모든 게시물 조회
+    @GetMapping(value = "/", produces = { MediaType.APPLICATION_JSON_VALUE})
+        public ResponseEntity<List<BoardDto>> findAll() {
+        List<BoardDto> boardDtoList = boardService.findAll();
+        return new ResponseEntity<List<BoardDto>>(boardDtoList, HttpStatus.OK);
     }
 
-    @PostMapping("/post")
-    public String write(BoardDto boardDto){
-        boardService.savePost(boardDto);
-        return "redirect:/";
+ // 게시글 작성
+    @PostMapping(value = "/post", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<Long> write(@RequestBody BoardDto boardDto) throws Exception {
+        Long savedBoardSeq = boardService.savePost(boardDto);
+        return new ResponseEntity<Long>(savedBoardSeq, HttpStatus.CREATED);
     }
 
 
