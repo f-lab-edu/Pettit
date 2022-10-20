@@ -3,25 +3,21 @@ package com.flab.Pettit.controller;
 import com.flab.Pettit.dto.BoardDto;
 import com.flab.Pettit.service.BoardService;
 import io.swagger.annotations.Api;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 
 @Api(tags = {"게시글"})
-@Controller
+@RestController
+@RequiredArgsConstructor
 @RequestMapping("/api")
 
 public class BoardController {
     private final BoardService boardService;
 
-
-
-    public BoardController(BoardService boardService) {
-        this.boardService = boardService;
-    }
     @GetMapping("/")
     public String list() {
         return "board/list.html";
@@ -31,10 +27,10 @@ public class BoardController {
         return "board/write.html";
     }
 
-    @PostMapping("/post")
-    public String write(BoardDto boardDto){
-        boardService.savePost(boardDto);
-        return "redirect:/";
+    @PostMapping(value = "/post", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<Long> write(@RequestBody BoardDto boardDto) throws Exception {
+        Long savedBoardSeq = boardService.savePost(boardDto);
+        return new ResponseEntity<Long>(savedBoardSeq, HttpStatus.CREATED);
     }
 
 
