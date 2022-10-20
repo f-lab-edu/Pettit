@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @Api(tags = {"게시글"})
 @RestController
@@ -17,16 +19,14 @@ import org.springframework.web.bind.annotation.*;
 
 public class BoardController {
     private final BoardService boardService;
-
-    @GetMapping("/")
-    public String list() {
-        return "board/list.html";
-    }
-    @GetMapping("/post")
-    public String write(){
-        return "board/write.html";
+ // 모든 게시물 조회
+    @GetMapping(value = "/", produces = { MediaType.APPLICATION_JSON_VALUE})
+        public ResponseEntity<List<BoardDto>> findAll() {
+        List<BoardDto> boardDtoList = boardService.findAll();
+        return new ResponseEntity<List<BoardDto>>(boardDtoList, HttpStatus.OK);
     }
 
+ // 게시글 작성
     @PostMapping(value = "/post", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Long> write(@RequestBody BoardDto boardDto) throws Exception {
         Long savedBoardSeq = boardService.savePost(boardDto);
