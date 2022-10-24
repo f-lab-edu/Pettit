@@ -1,14 +1,14 @@
 package com.flab.Pettit.service;
 
 import com.flab.Pettit.domain.entity.BoardEntity;
-import com.flab.Pettit.dto.BoardDto;
+import com.flab.Pettit.dto.BoardResponseDto;
+import com.flab.Pettit.dto.BoardSaveRequestDto;
 import com.flab.Pettit.repository.BoardRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BoardService {
@@ -22,7 +22,7 @@ public class BoardService {
     repository의 save는 JpaRepository -> PagingAndSortingRepository -> CrudRepository의 인터페이스이다
     **/
     @Transactional
-    public Long savePost(BoardDto boardDto){
+    public Long savePost(BoardSaveRequestDto boardDto) {
         return boardRepository.save(boardDto.toEntity()).getId();
     }
     /**
@@ -31,44 +31,31 @@ public class BoardService {
     완성된 BoardDto 타입의 List를 리턴해준다.
     **/
     @Transactional(readOnly = true)
-    public List<BoardDto> findAll(){
-        List<BoardEntity> boards = boardRepository.findAll();
-        List<BoardDto> boardDtoList = new ArrayList<>();
+    public List<BoardResponseDto> findAll() throws IllegalArgumentException{
 
-        for(BoardEntity boardEntity : boards){
-            BoardDto boardDto = BoardDto.builder()
-                    .id(boardEntity.getId())
-                    .title(boardEntity.getTitle())
-                    .content(boardEntity.getContent())
-                    .writer(boardEntity.getWriter())
-                    .createDate(boardEntity.getCreatDate())
-                    .build();
-            boardDtoList.add(boardDto);
-        }
-        return boardDtoList;
+
+        return boardRepository.findAll()
+                .stream()
+                .map(BoardResponseDto::new)
+                .collect(Collectors.toList());
     }
     /**
     게시글 - 상세 조회
-    **/
+    *
+     * @return*/
     @Transactional(readOnly = true)
-    public BoardDto findById(Long id) {
-        Optional<BoardEntity> boardWrapper = boardRepository.findById(id);
-        BoardEntity boardEntity = boardWrapper.get();
-        BoardDto boardDto = BoardDto.builder()
-                .id(boardEntity.getId())
-                .title(boardEntity.getTitle())
-                .content(boardEntity.getContent())
-                .writer(boardEntity.getWriter())
-                .createDate(boardEntity.getCreatDate())
-                .build();
-        return boardDto;
+    public BoardResponseDto findById(Long id) throws IllegalArgumentException{
+        BoardEntity boardEntity = boardRepository.findById(id).orElseThrow(() -> new IllegalAccessError("[id=" + id + "] 해당 게시글이 존재하지 않습니다."));
+        return new BoardResponseDto(boardEntity);
     }
     /**
     게시글 - 삭제 기능
     **/
     @Transactional
-    public void deletePost(Long id) {
-        boardRepository.deleteById(id);
+    public void deletePost(Long id) throws IllegalArgumentException{
+        BoardEntity boardEntity = boardRepository.findById(id)
+                .orElseThrow(() -> new IllegalAccessError("[id=" + id + "] 해당 게시글이 존재하지 않습니다."));
+        boardRepository.delete(boardEntity);
 
     }
 }
