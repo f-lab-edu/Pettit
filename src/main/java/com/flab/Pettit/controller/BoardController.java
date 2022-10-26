@@ -19,6 +19,7 @@ import java.util.List;
 @RequestMapping("/api")
 
 public class BoardController {
+
     private final BoardService boardService;
  // 모든 게시물 조회
     @GetMapping(value = "/post", produces = {MediaType.APPLICATION_JSON_VALUE})
