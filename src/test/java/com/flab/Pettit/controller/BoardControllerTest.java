@@ -1,7 +1,8 @@
 package com.flab.Pettit.controller;
 
 import com.flab.Pettit.domain.entity.BoardEntity;
-import com.flab.Pettit.dto.BoardDto;
+import com.flab.Pettit.dto.BoardSaveRequestDto;
+import com.flab.Pettit.dto.BoardUpdateRequestDto;
 import com.flab.Pettit.repository.BoardRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +13,8 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -57,7 +60,7 @@ class BoardControllerTest {
         String title = "게시글 제목 test";
         String content = "게시글 컨텐츠 test";
 
-        BoardDto boardDto = BoardDto.builder()
+        BoardSaveRequestDto boardDto = BoardSaveRequestDto.builder()
                 .title(title)
                 .writer(writer)
                 .content(content)
@@ -118,6 +121,43 @@ class BoardControllerTest {
         ResponseEntity<Long> responseEntity = testRestTemplate.exchange(url, HttpMethod.DELETE, httpEntity, Long.class);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
 
+    }
+    /**
+    특정 게시물 수정
+    **/
+    @Test
+    public void update() throws Exception {
+        String title = "제목_저장";
+        String writer = "작성자_저장";
+        String content = "내용_저장";
+
+        BoardEntity saveBoard = boardRepository.save(BoardEntity.builder()
+                .title(title)
+                .writer(writer)
+                .content(content)
+                .build());
+        Long BoardId = saveBoard.getId();
+        String updateBoardTitle = "제목_업데이트";
+        String updateBoardContent = "컨텐츠_업데이트";
+
+        BoardUpdateRequestDto boardUpdateRequestDto = BoardUpdateRequestDto.builder()
+                .title(updateBoardTitle)
+                .content(updateBoardContent)
+                .build();
+
+        String url = "http://localhost:" + port + "/api/post/" + BoardId;
+
+        HttpEntity<BoardUpdateRequestDto> boardUpdateRequestDtoHttpEntity = new HttpEntity<>(boardUpdateRequestDto);
+
+        ResponseEntity<Long> responseEntity = testRestTemplate.exchange(url, HttpMethod.PUT, boardUpdateRequestDtoHttpEntity, Long.class);
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(responseEntity.getBody()).isGreaterThan(0L);
+
+        List<BoardEntity> boardList = boardRepository.findAll();
+        BoardEntity boardEntity = boardList.get(boardList.size() - 1);
+        assertThat(boardEntity.getTitle()).isEqualTo(updateBoardTitle);
+        assertThat(boardEntity.getContent()).isEqualTo(updateBoardContent);
     }
 
 
