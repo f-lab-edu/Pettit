@@ -2,6 +2,7 @@ package com.flab.Pettit.controller;
 
 import com.flab.Pettit.dto.BoardResponseDto;
 import com.flab.Pettit.dto.BoardSaveRequestDto;
+import com.flab.Pettit.dto.BoardUpdateRequestDto;
 import com.flab.Pettit.service.BoardService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -16,36 +17,41 @@ import java.util.List;
 @Api(tags = {"게시글"})
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/post")
 
 public class BoardController {
 
     private final BoardService boardService;
  // 모든 게시물 조회
-    @GetMapping(value = "/post", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping(value = "/", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<List<BoardResponseDto>> findAll() {
         List<BoardResponseDto> boardDtoList = boardService.findAll();
         return new ResponseEntity<List<BoardResponseDto>>(boardDtoList, HttpStatus.OK);
     }
  // 특정 게시물 조회
-    @GetMapping(value = "/post/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<BoardResponseDto> findById(@PathVariable("id") Long id){
         BoardResponseDto boardResponseDto = boardService.findById(id);
         return new ResponseEntity<BoardResponseDto>(boardResponseDto, HttpStatus.OK);
     }
  // 게시글 작성
-    @PostMapping(value = "/post", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(value = "/", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Long> write(@RequestBody BoardSaveRequestDto boardDto) throws Exception {
         Long savedBoardSeq = boardService.savePost(boardDto);
         return new ResponseEntity<Long>(savedBoardSeq, HttpStatus.CREATED);
     }
  // 특정 게시글 삭제
-    @DeleteMapping(value = "/post/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @DeleteMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Long> delete(@PathVariable("id") Long id){
         boardService.deletePost(id);
         return new ResponseEntity<Long>(id, HttpStatus.NO_CONTENT);
     }
  // 특정 게시글 수정
+    @PutMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<Long> update(@PathVariable("id") Long id, @RequestBody BoardUpdateRequestDto boardUpdateRequestDto){
+        Long updateBoardId = boardService.update(id, boardUpdateRequestDto);
+        return new ResponseEntity<Long>(updateBoardId, HttpStatus.CREATED);
+    }
 
 
 
