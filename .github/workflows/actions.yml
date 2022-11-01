@@ -66,7 +66,4 @@ jobs:
         port: ${{ secrets.PORT }}
         timeout: 40s
         script: |
-             echo "test!"
-             docker rm -f $(docker ps -qa)
-             docker rmi ${{ secrets.DOCKER_REPO }}
-             docker run -d -p 8088:8088 ${{ secrets.DOCKER_REPO }}
+            sh /home/deploy.sh
