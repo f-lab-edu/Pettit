@@ -4,7 +4,7 @@ ENV APP_HOME=/usr/app/
 
 WORKDIR $APP_HOME
 
-COPY build/lib/*.jar application.jar
+COPY build/lib/Pettit-0.0.1-SNAPSHOT.jar application.jar
 
 EXPOSE 8281
 
