@@ -1,5 +1,6 @@
 package com.flab.Pettit.service;
 
+import com.flab.Pettit.advice.exception.BoardIdNotFoundException;
 import com.flab.Pettit.domain.entity.BoardEntity;
 import com.flab.Pettit.dto.BoardResponseDto;
 import com.flab.Pettit.dto.BoardSaveRequestDto;
@@ -44,17 +45,17 @@ public class BoardService {
     게시글 - 상세 조회
     **/
     @Transactional(readOnly = true)
-    public BoardResponseDto findById(Long id) throws IllegalArgumentException{
-        BoardEntity boardEntity = boardRepository.findById(id).orElseThrow(() -> new IllegalAccessError("[id=" + id + "] 해당 게시글이 존재하지 않습니다."));
+    public BoardResponseDto findById(Long id) {
+        BoardEntity boardEntity = boardRepository.findById(id).orElseThrow(BoardIdNotFoundException::new);
         return new BoardResponseDto(boardEntity);
     }
     /**
     게시글 - 삭제 기능
     **/
     @Transactional
-    public void deletePost(Long id) throws IllegalArgumentException{
+    public void deletePost(Long id) {
         BoardEntity boardEntity = boardRepository.findById(id)
-                .orElseThrow(() -> new IllegalAccessError("[id=" + id + "] 해당 게시글이 존재하지 않습니다."));
+                .orElseThrow(BoardIdNotFoundException::new);
         boardRepository.delete(boardEntity);
     }
     /**
@@ -63,7 +64,7 @@ public class BoardService {
     @Transactional
     public Long update(Long id, BoardUpdateRequestDto boardUpdateRequestDto) {
         BoardEntity boardEntity = boardRepository.findById(id)
-                .orElseThrow(() -> new IllegalAccessError("[boardSeq=" + id + "] 해당 게시글이 존재하지 않습니다."));
+                .orElseThrow(BoardIdNotFoundException::new);
         boardEntity.update(boardUpdateRequestDto.getTitle(), boardUpdateRequestDto.getContent());
         return id;
     }
