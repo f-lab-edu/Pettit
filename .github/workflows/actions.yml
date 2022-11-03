@@ -20,8 +20,6 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-#     - name: Test with Gradle # test application build
-#       run: ./gradlew test
     - name: Build with Gradle
       run: ./gradlew build -x test
     - name: Temporarily save build artifact
@@ -45,7 +43,6 @@ jobs:
         name: build-artifact
         path: build
     - name: Docker Hub Sign-in
-      # ${{secrets.DOCKER_USERNAME}}와 ${{ secrets.DOCKER_PASSWORD}}는 해당 Repository의 Secrets에 추가 해줌
       run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
     - name: Building Docker Image
       run: docker build -t $REPO:latest -t $REPO:${GITHUB_RUN_ID} .
@@ -62,7 +59,6 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
         password: ${{ secrets.PW }}
- #       key: ${{ secrets.PRIVATE_KEY }}
         port: ${{ secrets.PORT }}
         timeout: 40s
         script: |
