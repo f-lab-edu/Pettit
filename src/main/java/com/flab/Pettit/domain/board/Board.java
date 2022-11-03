@@ -1,21 +1,20 @@
-package com.flab.Pettit.domain.entity;
+package com.flab.Pettit.domain.board;
 
+import com.flab.Pettit.domain.TimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Table(name = "BOARD")
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class BoardEntity extends TimeEntity{
+public class Board extends TimeEntity {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(length = 10, nullable = false)
@@ -28,7 +27,7 @@ public class BoardEntity extends TimeEntity{
     private String content;
 
     @Builder
-    public BoardEntity(String writer, String title, String content) {
+    public Board(String writer, String title, String content) {
         this.writer = writer;
         this.title = title;
         this.content = content;

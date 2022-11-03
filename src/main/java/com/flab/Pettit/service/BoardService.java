@@ -1,13 +1,12 @@
 package com.flab.Pettit.service;
 
 import com.flab.Pettit.advice.exception.BoardIdNotFoundException;
-import com.flab.Pettit.domain.entity.BoardEntity;
+import com.flab.Pettit.domain.board.Board;
 import com.flab.Pettit.dto.BoardResponseDto;
 import com.flab.Pettit.dto.BoardSaveRequestDto;
 import com.flab.Pettit.dto.BoardUpdateRequestDto;
 import com.flab.Pettit.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,7 +45,7 @@ public class BoardService {
     **/
     @Transactional(readOnly = true)
     public BoardResponseDto findById(Long id) {
-        BoardEntity boardEntity = boardRepository.findById(id).orElseThrow(BoardIdNotFoundException::new);
+        Board boardEntity = boardRepository.findById(id).orElseThrow(BoardIdNotFoundException::new);
         return new BoardResponseDto(boardEntity);
     }
     /**
@@ -54,7 +53,7 @@ public class BoardService {
     **/
     @Transactional
     public void deletePost(Long id) {
-        BoardEntity boardEntity = boardRepository.findById(id)
+        Board boardEntity = boardRepository.findById(id)
                 .orElseThrow(BoardIdNotFoundException::new);
         boardRepository.delete(boardEntity);
     }
@@ -63,7 +62,7 @@ public class BoardService {
     **/
     @Transactional
     public Long update(Long id, BoardUpdateRequestDto boardUpdateRequestDto) {
-        BoardEntity boardEntity = boardRepository.findById(id)
+        Board boardEntity = boardRepository.findById(id)
                 .orElseThrow(BoardIdNotFoundException::new);
         boardEntity.update(boardUpdateRequestDto.getTitle(), boardUpdateRequestDto.getContent());
         return id;
