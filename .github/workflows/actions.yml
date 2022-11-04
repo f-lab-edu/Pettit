@@ -62,4 +62,4 @@ jobs:
         port: ${{ secrets.PORT }}
         timeout: 40s
         script: |
-            sh /home/deploy.sh
+            sh /home/icns/deploy.sh
