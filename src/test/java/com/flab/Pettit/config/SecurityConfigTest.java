@@ -14,6 +14,7 @@ class SecurityConfigTest {
 
     private static String PASSWORD = "홍기대f-lab";
 
+ // 인코딩 양식으로 출력이 되는지 확인
     @Test
     public void passwordEncode() throws Exception {
 
@@ -24,7 +25,7 @@ class SecurityConfigTest {
         assertThat(encodePassword).contains("{bcrypt}");
         assertThat(encodePassword).isNotEqualTo(PASSWORD);
     }
-
+ // 비밀번호 인코딩이 랜덤하게 되는지 확인
     @Test
     public void passwordEncodeRandomly() throws Exception{
 
@@ -34,7 +35,7 @@ class SecurityConfigTest {
       //then
         assertThat(encodePassword1).isNotEqualTo(encodePassword2);
     }
-
+ // 인코딩된 비밀번호가 매칭이 되는지 확인
     @Test void encodedPasswordMatch() throws Exception{
 
       //when
