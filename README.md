@@ -4,7 +4,7 @@
 - 해당 프로젝트는 REST API로 구현하고자 합니다.
 - 기능 개발에 더불어, 코드의 재사용성 및 유지보수 효율성 확보하는 것을 목표로 개발을 하고 있습니다.
 - Spring Framework를 사용하여 대용량 트래픽을 감당할 수 있는 애플리케이션을 개발하고자 합니다.
-- CDC구현을 통해 active/standby DB에 대해 이해도를 높히고자 합니다.
+- CDC구현을 통해 active/standby DB 및 HA에 대한 이해도를 높히고자 합니다.
 
 ## 🎈 Use Case
 
@@ -30,7 +30,8 @@
 
 ## 🌌아키텍처
 
-[그림 넣을 예정]
+![image](https://user-images.githubusercontent.com/70564639/200108288-b0a5497e-6c1d-4196-a4e4-52598e361986.png)
+
 
 ## 🔧사용 기술
 
