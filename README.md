@@ -56,6 +56,8 @@
 - Git, Github Project
 
 ## ❗기술적 이슈
+[CDC 공부](https://velog.io/velog.io/@kidae92/DB-관리-공부)
+
 <CDC에 관한 블로그 작성 예정>
 
 
