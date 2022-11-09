@@ -1,6 +1,6 @@
 package com.flab.Pettit.domain.board;
 
-import com.flab.Pettit.domain.entity.TimeEntity;
+import com.flab.Pettit.domain.TimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
