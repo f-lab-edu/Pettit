@@ -25,7 +25,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.projectlombok:lombok'
 	implementation 'junit:junit:4.13.1'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot-starter', version: '3.0.4'
+	//p6spy 적용
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.7.1'
+	implementation 'com.auth0:java-jwt:3.18.2'
+	// swagger
+	implementation("io.springfox:springfox-boot-starter:3.0.0")
+	implementation("io.springfox:springfox-swagger-ui:3.0.0")
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'mysql:mysql-connector-java'
@@ -40,17 +46,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 
-	//p6spy 적용
-	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.7.1'
-	implementation 'com.auth0:java-jwt:3.18.2'
 
+}
 
-	// swagger
-	implementation("io.springfox:springfox-boot-starter:3.0.0")
-	implementation("io.springfox:springfox-swagger-ui:3.0.0")
-
-
-	tasks.named('test') {
-		useJUnitPlatform()
-	}
+tasks.named('test') {
+	useJUnitPlatform()
 }
