@@ -1,4 +1,4 @@
-package com.flab.Pettit.domain.entity;
+package com.flab.Pettit.domain;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
