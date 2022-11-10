@@ -5,6 +5,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.flab.Pettit.domain.TimeEntity;
 import javax.persistence.*;
 
+/**
+ * 아이디와 비밀번호, 이름, 닉네임, 나이를 입력받습니다.
+ * 아이디는 중복될 수 없습니다.
+ * 비밀번호와 이름, 닉네임과 나이는 변경할 수 있습니다.
+ * 비밀번호는 암호화되어 데이터베이스에 저장됩니다.
+ * 회원 엔티티는 데이터베이스에 자장될 때, 등록 시간과 업데이트 시간을 반영되도록 하였습니다.
+ *
+ * @author Gidae Hong
+ * @Since 1.0
+ * **/
 @Table(name = "MEMBER")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
