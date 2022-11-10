@@ -1,6 +1,7 @@
 package com.flab.Pettit.controller;
 
-import com.flab.Pettit.domain.entity.BoardEntity;
+
+import com.flab.Pettit.domain.board.Board;
 import com.flab.Pettit.dto.BoardSaveRequestDto;
 import com.flab.Pettit.dto.BoardUpdateRequestDto;
 import com.flab.Pettit.repository.BoardRepository;
@@ -9,7 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
@@ -72,8 +73,8 @@ class BoardControllerTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
-        List<BoardEntity> boardList = boardRepository.findAll();
-        BoardEntity boardEntity = boardList.get(boardList.size() - 1);
+        List<Board> boardList = boardRepository.findAll();
+        Board boardEntity = boardList.get(boardList.size() - 1);
         assertThat(boardEntity.getTitle()).isEqualTo(title);
         assertThat(boardEntity.getContent()).isEqualTo(content);
         assertThat(boardEntity.getWriter()).isEqualTo(writer);
@@ -105,7 +106,7 @@ class BoardControllerTest {
         String writer = "홍기대";
         String content = "삭제내용";
 
-        BoardEntity saveBoard = boardRepository.save(BoardEntity.builder()
+        Board saveBoard = boardRepository.save(Board.builder()
                 .title(title)
                 .content(content)
                 .writer(writer)
@@ -131,7 +132,7 @@ class BoardControllerTest {
         String writer = "작성자_저장";
         String content = "내용_저장";
 
-        BoardEntity saveBoard = boardRepository.save(BoardEntity.builder()
+        Board saveBoard = boardRepository.save(Board.builder()
                 .title(title)
                 .writer(writer)
                 .content(content)
@@ -153,9 +154,8 @@ class BoardControllerTest {
 
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
-
-        List<BoardEntity> boardList = boardRepository.findAll();
-        BoardEntity boardEntity = boardList.get(boardList.size() - 1);
+        List<Board> boardList = boardRepository.findAll();
+        Board boardEntity = boardList.get(boardList.size() - 1);
         assertThat(boardEntity.getTitle()).isEqualTo(updateBoardTitle);
         assertThat(boardEntity.getContent()).isEqualTo(updateBoardContent);
     }
