@@ -41,4 +41,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
-}
+
