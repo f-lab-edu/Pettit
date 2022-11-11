@@ -16,7 +16,7 @@ import java.io.IOException;
  * @since 1.0
  **/
 @Slf4j
-public class LoginSuccessJWTProviderHandler extends SimpleUrlAuthenticationSuccessHandler {
+public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException{
