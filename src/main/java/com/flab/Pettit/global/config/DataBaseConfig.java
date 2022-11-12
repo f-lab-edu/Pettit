@@ -1,4 +1,4 @@
-package com.flab.Pettit.config;
+package com.flab.Pettit.global.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -16,7 +16,7 @@ import javax.sql.DataSource;
  * @ConfigurationProperties: 인자에 prefix(접두사) 속성을 줄 수 있고 @propertySource에 지정된 파일에서 해당 접두사로 시작하는 설정을 모두 읽어 해당 메서드에 매핑(바인딩)
  * ***/
 @Configuration
-@PropertySource("classpath:/application.properties")
+@PropertySource("classpath:/application.yml")
 public class DataBaseConfig {
 
     @Bean

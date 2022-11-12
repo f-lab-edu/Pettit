@@ -24,6 +24,6 @@ public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSucces
         log.info("로그인 성공 토큰 발급. username:{}", userDetails.getUsername());
 
         response.getWriter().write("성공");
-        //JWT 발급하는 코드 작성 예정
+        //TODO: JWT 발급하는 코드 작성 예정
     }
 }
