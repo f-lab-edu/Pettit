@@ -1,6 +1,7 @@
 package com.flab.Pettit.repository;
 
 import com.flab.Pettit.domain.member.Member;
+import com.flab.Pettit.domain.member.Role;
 import com.flab.Pettit.repository.MemberRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ class MemberRepositoryTest {
     @Test
     public void memberSave() throws Exception {
         //given
-        Member member = Member.builder().username("username").password("1234567890").name("Member1").nickName("NickName1").age(22).build();
+        Member member = Member.builder().username("username").password("1234567890").name("Member1").nickName("NickName1").role(Role.USER).age(22).build();
 
         //when
         Member saveMember = memberRepository.save(member);
@@ -45,7 +46,8 @@ class MemberRepositoryTest {
     @Test
     public void memberSaveNoUserName() throws Exception {
         //given
-        Member member = Member.builder().password("1234567890").name("Member1").nickName("NickName1").age(22).build();
+        Member member = Member.builder().password("1234567890").name("Member1").nickName("NickName1").age(22).role(Role.USER)
+                .build();
 
         //when, then
         assertThrows(Exception.class, () -> memberRepository.save(member));
@@ -54,7 +56,8 @@ class MemberRepositoryTest {
     @Test
     public void memberSaveNoName() throws Exception {
         //given
-        Member member = Member.builder().username("username").password("1234567890").nickName("NickName1").age(22).build();
+        Member member = Member.builder().username("username").password("1234567890").nickName("NickName1").age(22).role(Role.USER)
+                .build();
 
 
         //when, then
@@ -64,7 +67,7 @@ class MemberRepositoryTest {
     @Test
     public void memberSaveNoNickName() throws Exception {
         //given
-        Member member = Member.builder().username("username").password("1234567890").name("Member1").age(22).build();
+        Member member = Member.builder().username("username").password("1234567890").name("Member1").role(Role.USER).age(22).build();
 
         //when, then
         assertThrows(Exception.class, () -> memberRepository.save(member));
@@ -73,7 +76,7 @@ class MemberRepositoryTest {
     @Test
     public void memberSaveNoAge() throws Exception {
         //given
-        Member member = Member.builder().username("username").password("1234567890").name("Member1").nickName("NickName1").build();
+        Member member = Member.builder().username("username").password("1234567890").name("Member1").role(Role.USER).nickName("NickName1").build();
 
         //when, then
         assertThrows(Exception.class, () -> memberRepository.save(member));
@@ -82,8 +85,8 @@ class MemberRepositoryTest {
     @Test
     public void memberSaveDuplicatedUsername() throws Exception {
         //given
-        Member member1 = Member.builder().username("username").password("1234567890").name("Member1").nickName("NickName1").age(22).build();
-        Member member2 = Member.builder().username("username").password("1111111111").name("Member2").nickName("NickName2").age(22).build();
+        Member member1 = Member.builder().username("username").password("1234567890").name("Member1").role(Role.USER).nickName("NickName1").age(22).build();
+        Member member2 = Member.builder().username("username").password("1111111111").name("Member2").role(Role.USER).nickName("NickName2").age(22).build();
 
 
         memberRepository.save(member1);
@@ -97,7 +100,7 @@ class MemberRepositoryTest {
     @Test
     public void deleteMember() throws Exception {
         //given
-        Member member1 = Member.builder().username("username").password("1234567890").name("Member1").nickName("NickName1").age(22).build();
+        Member member1 = Member.builder().username("username").password("1234567890").name("Member1").role(Role.USER).nickName("NickName1").age(22).build();
         memberRepository.save(member1);
 
 
@@ -113,7 +116,7 @@ class MemberRepositoryTest {
     public void existByUsername() throws Exception {
         //given
         String username = "username";
-        Member member1 = Member.builder().username(username).password("1234567890").name("Member1").nickName("NickName1").age(22).build();
+        Member member1 = Member.builder().username(username).password("1234567890").name("Member1").role(Role.USER).nickName("NickName1").age(22).build();
         memberRepository.save(member1);
 
         //when, then
@@ -126,7 +129,7 @@ class MemberRepositoryTest {
     public void findByUsername() throws Exception {
         //given
         String username = "username";
-        Member member1 = Member.builder().username(username).password("1234567890").name("Member1").nickName("NickName1").age(22).build();
+        Member member1 = Member.builder().username(username).password("1234567890").name("Member1").role(Role.USER).nickName("NickName1").age(22).build();
         memberRepository.save(member1);
         em.clear();
 
@@ -143,7 +146,7 @@ class MemberRepositoryTest {
     @Test
     public void memberSaveCheckTime() throws Exception {
         //given
-        Member member1 = Member.builder().username("username").password("1234567890").name("Member1").nickName("NickName1").age(22).build();
+        Member member1 = Member.builder().username("username").password("1234567890").name("Member1").role(Role.USER).nickName("NickName1").age(22).build();
         memberRepository.save(member1);
         em.clear();
 
