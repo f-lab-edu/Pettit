@@ -5,6 +5,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.flab.Pettit.domain.TimeEntity;
 import javax.persistence.*;
 
+import static javax.persistence.EnumType.STRING;
+
 /**
  * 아이디와 비밀번호, 이름, 닉네임, 나이를 입력받습니다.
  * 아이디는 중복될 수 없습니다.
@@ -41,6 +43,10 @@ public class Member extends TimeEntity {
 
     @Column(nullable = false, length = 30)
     private Integer age;
+
+    @Enumerated(STRING)
+    @Column(nullable = false, length = 30)
+    private Role role;//권한 -> USER, ADMIN
 
 
 
