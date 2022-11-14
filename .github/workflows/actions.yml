@@ -3,7 +3,7 @@ name: Pettit Github Actions
 # Main branck에 push될 때 Trigger된다
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "develop" ]
 
 jobs:
   build:
