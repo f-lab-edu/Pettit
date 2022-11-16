@@ -91,8 +91,6 @@ public class LoginTest {
     public void successLogin() throws Exception {
         //given
         Map<String, String> map = getUsernamePasswordMap(USERNAME, PASSWORD);
-
-
         //when
         MvcResult result = perform(LOGIN_URL, APPLICATION_JSON, map)
                 .andDo(print())
@@ -107,7 +105,7 @@ public class LoginTest {
         //when, then
         MvcResult result = perform(LOGIN_URL, APPLICATION_JSON, map)
                 .andDo(print())
-                .andExpect(status().isOk()) // 실패지만 보안상 이유로 200 반환
+                .andExpect(status().isBadRequest()) // 실패 401 반환
                 .andReturn();
     }
 
@@ -118,7 +116,7 @@ public class LoginTest {
         //when, then
         MvcResult result = perform(LOGIN_URL, APPLICATION_JSON, map)
                 .andDo(print())
-                .andExpect(status().isOk()) // 실패지만 보안상 이유로 200 반환
+                .andExpect(status().isBadRequest())
                 .andReturn();
     }
 
@@ -140,7 +138,7 @@ public class LoginTest {
         //when, then
         perform(LOGIN_URL, APPLICATION_FORM_URLENCODED, map)
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isBadRequest())
                 .andReturn();
     }
 
@@ -156,7 +154,4 @@ public class LoginTest {
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
-
-
-
 }
