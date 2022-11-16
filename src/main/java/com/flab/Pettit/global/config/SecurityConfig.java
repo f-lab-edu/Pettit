@@ -17,6 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 /**
  * json을 통해 로그인을 진행, 로그인 이후 refreshToken이 만료되기 전까지는 토큰을 통해 인증을 진행할 것이기 때문에
@@ -46,11 +47,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login", "/signUp","/").permitAll()
                 .anyRequest().authenticated();
+        http.addFilterAfter(jsonUsernamePasswordLoginFilter(), LogoutFilter.class);
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() { // 1 - PasswordEncoder 등록
-
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
