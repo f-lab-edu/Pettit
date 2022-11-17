@@ -6,4 +6,5 @@ COPY ${JAR_FILE} app.jar
 
 EXPOSE 8281
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+## container 실행시 scouter 관련된 파일들을 볼륨으로 가져와서 실행
+ENTRYPOINT ["java", "-javaagent:/scouter/agent.java/scouter.agent.jar", "-Dscouter.config=/scouter/agent.java/conf/scouter.conf", "-jar", "app.jar"]
