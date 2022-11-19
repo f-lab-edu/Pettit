@@ -17,22 +17,22 @@ import java.util.stream.Collectors;
 @Service
 public class BoardService {
     /**
-    final키워드를 사용한 인스턴스들만 Bean객체로 등록하게됨
-    final 키워두를 사용하지 않으면 테스트 코드에서 NullPointerException이 발생함
-    **/
+     final키워드를 사용한 인스턴스들만 Bean객체로 등록하게됨
+     final 키워두를 사용하지 않으면 테스트 코드에서 NullPointerException이 발생함
+     **/
     private final BoardRepository boardRepository;
 
     /**
-    savePost는 Ropository를 통해 실제로 데이터를 저장하게 된다.
-    repository의 save는 JpaRepository -> PagingAndSortingRepository -> CrudRepository의 인터페이스이다
-    **/
+     savePost는 Ropository를 통해 실제로 데이터를 저장하게 된다.
+     repository의 save는 JpaRepository -> PagingAndSortingRepository -> CrudRepository의 인터페이스이다
+     **/
     @Transactional
     public Long savePost(BoardSaveRequestDto boardDto) {
         return boardRepository.save(boardDto.toEntity()).getId();
     }
     /**
-    DB에 저장되어 있는 전체 데이터를 조회한다.
-    **/
+     DB에 저장되어 있는 전체 데이터를 조회한다.
+     **/
     @Transactional(readOnly = true)
     public List<BoardResponseDto> findAll() {
         return boardRepository.findAll()
@@ -41,16 +41,16 @@ public class BoardService {
                 .collect(Collectors.toList());
     }
     /**
-    게시글 - 상세 조회
-    **/
+     게시글 - 상세 조회
+     **/
     @Transactional(readOnly = true)
     public BoardResponseDto findById(Long id) {
         Board boardEntity = boardRepository.findById(id).orElseThrow(BoardIdNotFoundException::new);
         return new BoardResponseDto(boardEntity);
     }
     /**
-    게시글 - 삭제 기능
-    **/
+     게시글 - 삭제 기능
+     **/
     @Transactional
     public void deletePost(Long id) {
         Board boardEntity = boardRepository.findById(id)
@@ -58,13 +58,13 @@ public class BoardService {
         boardRepository.delete(boardEntity);
     }
     /**
-    게시글 - 수정 기능
-    **/
+     게시글 - 수정 기능
+     **/
     @Transactional
-    public Long update(Long id, BoardUpdateRequestDto boardUpdateRequestDto) {
+    public Board update(Long id, BoardUpdateRequestDto boardUpdateRequestDto) {
         Board boardEntity = boardRepository.findById(id)
                 .orElseThrow(BoardIdNotFoundException::new);
         boardEntity.update(boardUpdateRequestDto.getTitle(), boardUpdateRequestDto.getContent());
-        return id;
+        return boardEntity;
     }
 }
