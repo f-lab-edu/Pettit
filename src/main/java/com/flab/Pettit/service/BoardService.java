@@ -13,26 +13,30 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 게시판 작성, 수정, 삭제, 조회 기능을 담당하는 서비스 로직
+ * @author  홍기대
+ * @since   1.0
+ **/
 @RequiredArgsConstructor
 @Service
 public class BoardService {
-    /**
-     final키워드를 사용한 인스턴스들만 Bean객체로 등록하게됨
-     final 키워두를 사용하지 않으면 테스트 코드에서 NullPointerException이 발생함
-     **/
+
     private final BoardRepository boardRepository;
 
     /**
-     savePost는 Ropository를 통해 실제로 데이터를 저장하게 된다.
-     repository의 save는 JpaRepository -> PagingAndSortingRepository -> CrudRepository의 인터페이스이다
+     * 게시물 작성
+     * @param boardDto
+     * @return 생성된 게시물의 id값
      **/
     @Transactional
     public Long savePost(BoardSaveRequestDto boardDto) {
         return boardRepository.save(boardDto.toEntity()).getId();
     }
     /**
-     DB에 저장되어 있는 전체 데이터를 조회한다.
-     **/
+     * 모든 게시물 조회
+     * @return 모든 게시물 리스트
+     * **/
     @Transactional(readOnly = true)
     public List<BoardResponseDto> findAll() {
         return boardRepository.findAll()
@@ -41,7 +45,9 @@ public class BoardService {
                 .collect(Collectors.toList());
     }
     /**
-     게시글 - 상세 조회
+     * 특정 게시물 조회
+     * @param id 찾고자 하는 게시물의 id
+     * @return 찾은 게시물
      **/
     @Transactional(readOnly = true)
     public BoardResponseDto findById(Long id) {
@@ -49,7 +55,8 @@ public class BoardService {
         return new BoardResponseDto(boardEntity);
     }
     /**
-     게시글 - 삭제 기능
+     * 특정 게시물 삭제
+     * @param id 지우고자 하는 게시물의 id
      **/
     @Transactional
     public void deletePost(Long id) {
@@ -58,7 +65,10 @@ public class BoardService {
         boardRepository.delete(boardEntity);
     }
     /**
-     게시글 - 수정 기능
+     * 특정 게시물 수정
+     * @param id 수정하고자 하는 게시물 id
+     * @param boardUpdateRequestDto 수정하고자 하는 내용
+     * @return 변경된 게시물
      **/
     @Transactional
     public Board update(Long id, BoardUpdateRequestDto boardUpdateRequestDto) {
